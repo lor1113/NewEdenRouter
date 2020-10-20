@@ -7,11 +7,6 @@ import operator
 map = read_yaml("newKspace.yaml")
 AU=149597870700
 
-def getDistance(dist):
-    if dist > 1e9:
-        return (dist / AU, "AU")
-    else:
-        return (dist/1000, "KM")
 
 def warpTime(warpSpeed, subSpeed, warpDist):
 
