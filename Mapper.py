@@ -4,6 +4,7 @@ import networkx as nx
 from statistics import mean
 from networkx import *
 import operator
+map = read_yaml("newKspace.yaml")
 AU=149597870700
 
 def getDistance(dist):
@@ -40,4 +41,5 @@ def warpTime(warpSpeed, subSpeed, warpDist):
     total_time = cruise_time + accel_time + decel_time
     return total_time
 
-print(warpTime(10,100,10))
+nodeList = list(nodes(map))
+print(len(nodeList))
