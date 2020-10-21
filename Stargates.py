@@ -13,9 +13,18 @@ def stargateParse(stargate):
     out = {}
     out["id"] = intFilter(stargate[0])
     out["pair"] = intFilter(stargate[1])
-    out["x"] = intFilter(stargate[3])
-    out["y"] = intFilter(stargate[4])
-    out["z"] = intFilter(stargate[5])
+    if stargate[3].count("-") == 2:
+        out["x"] = -1 * intFilter(stargate[3])/10
+    else:
+        out["x"] = intFilter(stargate[3])/10
+    if stargate[4].count("-") == 2:
+        out["y"] = -1 * intFilter(stargate[4])/10
+    else:
+        out["y"] = intFilter(stargate[4])/10
+    if stargate[5].count("-") == 2:
+        out["z"] = -1 * intFilter(stargate[5])/10
+    else:
+        out["z"] = intFilter(stargate[5])/10
     return out
 
 def systemParse(data,name):
