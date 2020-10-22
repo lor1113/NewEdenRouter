@@ -1,11 +1,12 @@
 import math
 import json
-import networkx as nx
-from statistics import mean
+import copy
+import time
 from networkx import *
-import operator
-map = read_yaml("newKspace.yaml")
+
 AU=149597870700
+jsonData = open("stargateDB.json").read()
+data = json.loads(jsonData)
 
 
 def warpTime(warpSpeed, subSpeed, warpDist):
@@ -36,5 +37,50 @@ def warpTime(warpSpeed, subSpeed, warpDist):
     total_time = cruise_time + accel_time + decel_time
     return total_time
 
-nodeList = list(nodes(map))
-print(len(nodeList))
+def mapMaker(map, warpSpeed, subSpeed, align):
+    for edge in map.edges(data=True):
+        if edge[2]["type"] == 0:
+            edge[2]["weight"] = align
+        if edge[2]["type"] == 1:
+            edge[2]["weight"] = warpTime(warpSpeed,subSpeed,edge[2]["weight"])
+    return map
+
+def routingPath(map,start, end):
+    map.add_node("Start",system=111)
+    map.add_node("End",system=999)
+    for node in map.nodes(data=True):
+        if node[1]["system"] == str(start):
+            map.add_edge("Start",node[0])
+            print("Start Linked")
+        elif node[1]["system"] == str(end):
+            map.add_edge("End",node[0])
+            print("End Linked")
+    print("Modified")
+    return dijkstra_path(map,"Start","End")
+
+def routingLength(map,start, end):
+    map.add_node("Start",system=111)
+    map.add_node("End",system=999)
+    for node in map.nodes(data=True):
+        if node[1]["system"] == str(start):
+            map.add_edge("Start",node[0])
+        elif node[1]["system"] == str(end):
+            map.add_edge("End",node[0])
+    return dijkstra_path_length(map,"Start","End")
+
+def center(map):
+    out = {}
+    for start in data.keys():
+        out[start] = 0
+        print(start)
+        print(out)
+        for end in data.keys():
+            if end != start:
+                timeStart = time.time()
+                out[start] = out[start] + routingLength(copy.deepcopy(map),start,end)
+                timeEnd = time.time()
+                print((timeEnd - timeStart)*1000)
+    return out
+
+
+print(center(read_yaml("Atron.yaml")))
