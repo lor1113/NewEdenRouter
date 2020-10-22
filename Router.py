@@ -1,7 +1,6 @@
 import math
 import json
 import copy
-import time
 from networkx import *
 
 AU=149597870700
@@ -66,20 +65,26 @@ def routingLength(map,start, end):
             map.add_edge("Start",node[0])
         elif node[1]["system"] == str(end):
             map.add_edge("End",node[0])
-    return dijkstra_path_length(map,"Start","End")
+    length = dijkstra_path_length(map,"Start","End")
+    map.remove_node("Start")
+    map.remove_node("End")
+    return length
 
 def center(map):
     out = {}
+    counter = 0
     for start in data.keys():
         out[start] = 0
         print(start)
         print(out)
         for end in data.keys():
             if end != start:
-                timeStart = time.time()
-                out[start] = out[start] + routingLength(copy.deepcopy(map),start,end)
-                timeEnd = time.time()
-                print((timeEnd - timeStart)*1000)
+                counter = counter + 1
+                print(counter)
+                if counter == 1000:
+                    return out
+                else:
+                    out[start] = out[start] + routingLength(map,start,end)
     return out
 
 
