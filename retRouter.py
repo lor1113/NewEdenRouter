@@ -109,4 +109,4 @@ def center(map,warp_speed,sub_speed,align_speed):
     return out
 
 
-writer("center.json", center("retMap",3.03,120,27.3))
+writer("center.json",center("retMap",8.69,656,2))

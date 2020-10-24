@@ -87,5 +87,4 @@ def center(map):
                     out[start] = out[start] + routingLength(map,start,end)
     return out
 
-
-print(center(read_yaml("Atron.yaml")))
+read_yaml("Atron.yaml")
