@@ -1,1 +1,11 @@
-Work in Progress
+Finished EVE Online route optimizer. Comprises two modules; Router and retRouter
+
+Router is used to calculate optimal routes, and accepts a YAML-encoded map file as well as system IDs for startpoints and endpoints
+Creating said maps is done via the mapMaker() function, accepting a map (should be baseMap.yaml) and a warp speed, subwarp speed, and align
+The returned map can then be used for route calculations or stored for later use using write_yaml
+
+retRouter is used for mass statistical analysis. Center() which calculates the lowest combined travel time from a system to all others
+(to specify, the lowest of all the combined travel times from each system to all others). It directly accepts a map (should be "retMap") and a warp speed, subwarp speed, and align
+It outputs a dict of all systems and their combined travel time to others, which can be stored or parsed.
+
+Other files and programs were used for construction or interim coding stages, and are not intended for final use. They remain only for posterity.

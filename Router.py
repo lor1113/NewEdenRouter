@@ -44,7 +44,7 @@ def mapMaker(map, warpSpeed, subSpeed, align):
             edge[2]["weight"] = warpTime(warpSpeed,subSpeed,edge[2]["weight"])
     return map
 
-def routingPath(map,start, end):
+def routingPath(map,start,end):
     map.add_node("Start",system=111)
     map.add_node("End",system=999)
     for node in map.nodes(data=True):
