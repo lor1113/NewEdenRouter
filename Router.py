@@ -38,7 +38,8 @@ def mapMaker(map, warpSpeed, subSpeed, align):
     for edge in map.edges(data=True):
         if edge[2]["type"] == 0:  # 0 is an inter-stargate edge representing align times
             edge[2]["weight"] = align
-        if edge[2]["type"] == 1:  # 1 is an intra-stargate edge representing warp times, so the warp time is calculated using edge weight
+        if edge[2][
+            "type"] == 1:  # 1 is an intra-stargate edge representing warp times, so the warp time is calculated using edge weight
             edge[2]["weight"] = warpTime(warpSpeed, subSpeed, edge[2]["weight"])
     return map
 
@@ -54,3 +55,7 @@ def routingPath(map, start, end):
             map.add_edge("End", node[0])
             print("End Linked")
     return dijkstra_path(map, "Start", "End")  # calculates shortest path
+
+
+fenrir_map = read_yaml("Fenrir.yaml")
+print(routingPath(fenrir_map, 30000142, 30000144))
